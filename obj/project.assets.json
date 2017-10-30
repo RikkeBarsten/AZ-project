@@ -12539,11 +12539,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "p:\\AZ-project\\AZ-project.csproj",
+      "projectUniqueName": "P:\\AZ-project\\AZ-project.csproj",
       "projectName": "AZ-project",
-      "projectPath": "p:\\AZ-project\\AZ-project.csproj",
+      "projectPath": "P:\\AZ-project\\AZ-project.csproj",
       "packagesPath": "C:\\Users\\rbar\\.nuget\\packages\\",
-      "outputPath": "p:\\AZ-project\\obj\\",
+      "outputPath": "P:\\AZ-project\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
