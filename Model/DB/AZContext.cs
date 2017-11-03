@@ -18,7 +18,9 @@ namespace AZ_project.Model.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Analyse_Antal> (entity => {entity.Property(e => e.MA_nr).HasColumnName("MA - nr");});
             modelBuilder.Entity<Analyse_Antal> (entity => {entity.HasKey(e => e.MA_nr);});
+            
         }
 
         

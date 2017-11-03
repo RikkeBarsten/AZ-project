@@ -5,7 +5,7 @@ namespace AZ_project.Model
 {
     public interface IEmployeeAntalRepository
     {
-        List<EmployeeAntal> GetAll();
+        List<EmployeeAntalDTO> GetAll();
     }
 }
 

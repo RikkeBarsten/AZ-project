@@ -10,7 +10,7 @@ namespace AZ_project.Pages
     public class AntalModel : PageModel
     {
         private IEmployeeAntalRepository _employeeAntalRepo;
-        public List<EmployeeAntal> EmployeeAntal { get; set; }
+        public List<EmployeeAntalDTO> EmployeeAntal { get; set; }
 
         public AntalModel(IEmployeeAntalRepository userRepo)
         {
