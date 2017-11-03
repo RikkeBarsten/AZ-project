@@ -1,0 +1,71 @@
+﻿@page
+@model AntalModel
+@{
+    ViewData["Title"] = "Antal";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div>
+        <h2>Ansatte</h2>
+
+        <!-- <a asp-page_"Add">Tilføj ansat</a> -->
+
+        <h3>@Model.Message</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        MA - nr
+                    </th>
+                    <th>
+                        Køn
+                    </th>
+                    <th>
+                        Alder
+                    </th>
+                    <th>
+                        Arbejdstid
+                    </th>
+                    <th>
+                        Virksomhedsområde
+                    </th>
+                    <th>
+                        Fuldtid
+                    </th>
+                    <th>
+                        År
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var employee in Model.EmployeeAntal)
+                {
+                    <tr>
+                        <td>
+                            @(employee.MA_nr)
+                        </td>
+                        <td>
+                            @(employee.Køn)
+                        </td>
+                        <td>
+                            @(employee.Alder)
+                        </td>
+                        <td>
+                            @(employee.Arbejdstid)
+                        </td>
+                        <td>
+                            @(employee.Virksomhedsområde)
+                        </td>
+                        <td>
+                            @(employee.Fuldtid)
+                        </td>
+                        <td>
+                            @(employee.År)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
