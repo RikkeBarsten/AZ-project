@@ -45,7 +45,7 @@ namespace AZ_project.Model
                         Alder = 46,
                         Arbejdstid = "Deltid",
                         Virksomhedsområde = "Koncern HR",
-                        Fuldtid = 0.84m,
+                        Fuldtid = 0.84,
                         År = 2016 }
             );
 

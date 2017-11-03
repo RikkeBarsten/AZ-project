@@ -13,7 +13,7 @@ namespace AZ_project.Model.DB
 
         public string Overenskomst { get; set; }
         
-        public decimal? Fuldtid { get; set; }
+        public double? Fuldtid { get; set; }
         public int År { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace AZ_project.Model
         public string Virksomhedsområde { get; set; }
         public string Overenskomst { get; set; }
         
-        public decimal? Fuldtid { get; set; }
+        public double? Fuldtid { get; set; }
         public int År { get; set; }
     }
 }
