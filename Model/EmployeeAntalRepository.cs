@@ -21,6 +21,9 @@ namespace AZ_project.Model
             var employees = from e in db.Analyse_Antal
                             select e;
 
+
+            // https://www.exceptionnotfound.net/entity-framework-and-wcf-mapping-entities-to-dtos-with-automapper/
+         
             Mapper.Initialize(cfg => cfg.CreateMap<Analyse_Antal, EmployeeAntalDTO>());
 
             var EmployeeList = Mapper.Map<IEnumerable<Analyse_Antal>, IEnumerable<EmployeeAntalDTO>>(employees);
