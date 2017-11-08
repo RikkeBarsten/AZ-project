@@ -152,6 +152,9 @@ publish/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
 
+# Bower dependencies
+**/wwwroot/lib
+
 # Microsoft Azure Build Output
 csx/
 *.build.csdef
