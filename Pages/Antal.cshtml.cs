@@ -4,13 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AZ_project.Model;
+using System.Text;
+
 
 namespace AZ_project.Pages
 {
     public class AntalModel : PageModel
     {
         private IEmployeeAntalRepository _employeeAntalRepo;
-        public List<EmployeeAntalDTO> EmployeeAntal { get; set; }
+        public string EmployeeAntal { get; set; }
 
         public AntalModel(IEmployeeAntalRepository userRepo)
         {
@@ -25,5 +27,6 @@ namespace AZ_project.Pages
             EmployeeAntal = _employeeAntalRepo.GetAll();
             Message = "Test";
         }
+
     }
 }
