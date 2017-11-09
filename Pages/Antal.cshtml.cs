@@ -12,7 +12,8 @@ namespace AZ_project.Pages
     public class AntalModel : PageModel
     {
         private IEmployeeAntalRepository _employeeAntalRepo;
-        public string EmployeeAntal { get; set; }
+        public string EmployeeAntal { get; set;}
+        public string EmployeeFuldtid {get; set;}
 
         public AntalModel(IEmployeeAntalRepository userRepo)
         {
@@ -25,6 +26,7 @@ namespace AZ_project.Pages
         public void OnGet()
         {
             EmployeeAntal = _employeeAntalRepo.GetAll();
+            EmployeeFuldtid = _employeeAntalRepo.GetFuldtid();
             Message = "Test";
         }
 
