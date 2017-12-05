@@ -3,22 +3,34 @@
 @{
     ViewData["Title"] = "Antal";
 }
-<h2>@ViewData["Title"]</h2>
+<div>
+    <h2>@ViewData["Title"]</h2>
 
-<div id="Fuldtid">
+    <div id="Fuldtid">
         <h3>@Model.Message</h3>
         <p>@Model.EmployeeFuldtid</p>
        
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script type="text/javascript">
+        <script src="https://d3js.org/d3.v4.min.js"></script>
 
-    //D3 code here
-    
+        <script src="~/js/antal.1.js"></script>
 
-  
+        <script>
 
-    </script>
+        //var csv = "Year;Virk;Gender;Fuldtid\n2016;Apo-Sygehusapoteket;Kvinde;152,23\n2016;Apo-Sygehusapoteket;Mand;17,24\n2016;Direktionen;Mand;3\n"
 
+        //Get csv from model
+
+        var csv2 = "@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(Model.EmployeeFuldtid, false))";
+        console.log("CSV from model: " + csv2);
+
+        viz.antal(csv2);
+
+
+
+        </script>
+        
+        
     </div>
+</div>
 
     

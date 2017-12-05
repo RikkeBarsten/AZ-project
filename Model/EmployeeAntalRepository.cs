@@ -21,7 +21,7 @@ namespace AZ_project.Model
 
             //Second: EF - DB First implementation:
             
-            var employees = from e in db.Analyse_Antal
+            var employees = from e in db.Analyse_Fuldtid
                             select e;
 
 
@@ -39,7 +39,7 @@ namespace AZ_project.Model
             StringBuilder CsvAllSB = new StringBuilder();
 
             //Create headlines
-            CsvAllSB.AppendLine("Ma_nr; Køn; Alder; Arbejdstid; Virksomhedsområde; Overenskomst; Fuldtid; År");
+            CsvAllSB.AppendLine("Ma_nr;Køn;Alder;Virksomhedsområde;Overenskomst;Fuldtid;År");
 
             //Create line for each MA-nr in list:
             foreach (var ma in employees)
@@ -48,7 +48,6 @@ namespace AZ_project.Model
                     ma.MA_nr + ";" +
                     ma.Køn + ";" +
                     ma.Alder.ToString() + ";" +
-                    ma.Arbejdstid + ";" +
                     ma.Virksomhedsområde + ";" +
                     ma.Overenskomst + ";" +
                     ma.Fuldtid.ToString() + ";" +
@@ -66,7 +65,7 @@ namespace AZ_project.Model
         public string GetFuldtid()
             {
                 
-                var employeesFuldtid = db.Analyse_Antal.Select (e => new {
+                var employeesFuldtid = db.Analyse_Fuldtid.Select (e => new {
                     Year = e.År,
                     Virksomhedsområde = e.Virksomhedsområde,
                     Gender  = e.Køn,
@@ -80,11 +79,11 @@ namespace AZ_project.Model
                     Fuldtid = g.Sum(e => Math.Round(Convert.ToDecimal(e.Fuldtid),2))
                 });
 
-                
+
                 StringBuilder CsvFuldtidSB = new StringBuilder();
 
                 //Create headlines
-                CsvFuldtidSB.AppendLine("År; Virksomhedsområde; Køn; Fuldtid");
+                CsvFuldtidSB.AppendLine("Year;Virk;Gender;Fuldtid");
 
                 //Create line for each MA-nr in list:
                 foreach (var line in employeesFuldtid)

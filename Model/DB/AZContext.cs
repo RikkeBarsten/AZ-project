@@ -6,7 +6,7 @@ namespace AZ_project.Model.DB
 {
     public partial class AZContext : DbContext
     {
-        public virtual DbSet<Analyse_Antal> Analyse_Antal {get; set;}
+        public virtual DbSet<Analyse_Fuldtid> Analyse_Fuldtid {get; set;}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -18,8 +18,8 @@ namespace AZ_project.Model.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Analyse_Antal> (entity => {entity.Property(e => e.MA_nr).HasColumnName("MA - nr");});
-            modelBuilder.Entity<Analyse_Antal> (entity => {entity.HasKey(e => e.MA_nr);});
+            modelBuilder.Entity<Analyse_Fuldtid> (entity => {entity.Property(e => e.MA_nr).HasColumnName("MA - nr");});
+            modelBuilder.Entity<Analyse_Fuldtid> (entity => {entity.HasKey(e => e.MA_nr);});
             
         }
 
