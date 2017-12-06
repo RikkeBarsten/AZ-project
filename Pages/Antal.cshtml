@@ -3,15 +3,19 @@
 @{
     ViewData["Title"] = "Antal";
 }
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script src="~/js/viz.js"></script>
+
+
 <div>
-    <h2>@ViewData["Title"]</h2>
+    <!-- <h2>@ViewData["Title"]</h2> -->
 
-    <div id="Fuldtid">
+    <div id="Fuldtid" class="a section">
         <h3>Fuldtidsansatte</h3>
+        <p>Tekst om fuldtid</p>
         
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-
-        <script src="~/js/viz.js"></script>
 
         <script>
 
@@ -29,6 +33,12 @@
         </script>
         
         
+    </div>
+    <div id="fuldtid-deltid" class="b section">
+         <h3>Fuldtid og deltid</h3>
+         <p>Tekst om fuldtid og deltid</p>
+
+         <p>@Model.EmployeeAntal</p>
     </div>
 </div>
 

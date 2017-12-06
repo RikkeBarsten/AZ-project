@@ -40,15 +40,16 @@
             //Get data
             var ssv = d3.dsvFormat(";");
             var data = ssv.parse(csv);
-            console.log(JSON.stringify(data));
+            
+            //console.log(JSON.stringify(data));
         
             data.forEach(function(d){
                 //d.Year = + d.Year;
                 d.Fuldtid = parseFloat((d.Fuldtid.replace(",",".")));
             });
         
-            console.log("With numbers:\n");
-            console.log(JSON.stringify(data));
+            /* console.log("With numbers:\n");
+            console.log(JSON.stringify(data)); */
         
         
             //Nest data by virk and gender
@@ -100,10 +101,14 @@
                 .append("rect")
                 .attr("class", function (d) { return "category category-" + d.key})
                 .attr("x", function(d) {return x_categories(d.key);})
-                .attr("y", function (d) { return y(d.value); })
+                .attr("y", 0)
+                //.attr("y", function (d) { return y(d.value); })
                 .attr("width", x_categories.bandwidth())
                 .attr("height", function (d) { return height - y(d.value); })
-                .attr("fill", function(d) { return color(d.key); });
+                .attr("fill", function(d) { return color(d.key); })
+                .transition()
+                .duration(1000)
+                .attr("y", function (d) { return y(d.value); });
         
         
             //  Add x axis
@@ -118,8 +123,6 @@
                 .attr("transform", "rotate(90)")
                 .style("text-anchor", "start"); 
             
-        
-        
             // Add y axis
             var y_axis = svg.append("g")
                 .attr("class","axis")

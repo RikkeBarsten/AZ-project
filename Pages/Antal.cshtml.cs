@@ -25,8 +25,9 @@ namespace AZ_project.Pages
         
         public void OnGet()
         {
-            EmployeeAntal = _employeeAntalRepo.GetAll();
+            
             EmployeeFuldtid = _employeeAntalRepo.GetFuldtid();
+            EmployeeAntal = _employeeAntalRepo.GetAntal();
             //Message = "Test";
         }
 

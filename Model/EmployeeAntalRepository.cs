@@ -105,12 +105,39 @@ namespace AZ_project.Model
         
         public string GetAntal() {
             
+            var employeesAntal = db.Analyse_Antal.Select (e => new {
+                    Year = e.År,
+                    Virksomhedsområde = e.Virksomhedsområde,
+                    Gender  = e.Køn,
+                    Stillingskategori = e.Stillingskategori,
+                    MA_nr = e.MA_nr
+                })
+                .GroupBy(l => new { l.Year, l.Virksomhedsområde, l.Gender})
+                .Select (g => new {
+                    Year = g.Key.Year,
+                    Virksomhedsområde = g.Key.Virksomhedsområde,
+                    Gender = g.Key.Gender,
+                    Antal = g.Select(m => m.MA_nr).Distinct().Count()
+                });
+
+            StringBuilder CsvAntalSB = new StringBuilder();
+
+            CsvAntalSB.AppendLine("Year;Virk;Gender;Antal");
+
+                //Create line for each MA-nr in list:
+                foreach (var line in employeesAntal)
+                {
+                    CsvAntalSB.AppendLine(
+                        line.Year.ToString() + ";" +
+                        line.Virksomhedsområde + ";" +
+                        line.Gender + ";" +
+                        line.Antal.ToString()
+                       
+                    );
+                }
 
 
-            StringBuilder CsvFuldtidDeltidSB = new StringBuilder();
-
-
-            return CsvFuldtidDeltidSB.ToString();
+            return CsvAntalSB.ToString();
         }
         
         

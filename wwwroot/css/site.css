@@ -33,3 +33,21 @@ body {
         display: none;
     }
 }
+
+.a {
+    background: rebeccapurple;
+}
+
+.b {
+    background: whitesmoke;
+}
+
+.section {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.container {
+    margin-left: 0px;
+    margin-right: 0px;
+}
