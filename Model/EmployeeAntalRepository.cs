@@ -102,6 +102,27 @@ namespace AZ_project.Model
                 return CsvFuldtidSB.ToString();
             }
 
+        
+        public string GetAntal() {
+            
+
+
+            StringBuilder CsvFuldtidDeltidSB = new StringBuilder();
+
+
+            return CsvFuldtidDeltidSB.ToString();
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         private List<EmployeeAntalDTO> GetHardCodedList ()
         {
             List<EmployeeAntalDTO> Hardcoded = new List<EmployeeAntalDTO>();

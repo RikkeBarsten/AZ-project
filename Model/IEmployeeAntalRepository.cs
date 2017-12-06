@@ -8,6 +8,8 @@ namespace AZ_project.Model
         string GetAll();
 
         string GetFuldtid();
+
+        string GetAntal();
     }
 }
 
