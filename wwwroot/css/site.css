@@ -34,9 +34,9 @@ body {
     }
 }
 
-.a {
+/* .a {
     background: rebeccapurple;
-}
+} */
 
 .b {
     background: whitesmoke;
@@ -47,7 +47,3 @@ body {
     font-family: sans-serif;
 }
 
-.container {
-    margin-left: 0px;
-    margin-right: 0px;
-}
