@@ -49,7 +49,7 @@ namespace AZ_project.Model
                     ma.Køn + ";" +
                     ma.Alder.ToString() + ";" +
                     ma.Virksomhedsområde + ";" +
-                    ma.Overenskomst + ";" +
+                    ma.Stillingskategori + ";" +
                     ma.Fuldtid.ToString() + ";" +
                     ma.År.ToString()
                 );
@@ -68,13 +68,15 @@ namespace AZ_project.Model
                 var employeesFuldtid = db.Analyse_Fuldtid.Select (e => new {
                     Year = e.År,
                     Virksomhedsområde = e.Virksomhedsområde,
+                    Stillingskategori = e.Stillingskategori,
                     Gender  = e.Køn,
                     Fuldtid = e.Fuldtid
                 })
-                .GroupBy(l => new { l.Year, l.Virksomhedsområde, l.Gender})
+                .GroupBy(l => new { l.Year, l.Virksomhedsområde, l.Stillingskategori, l.Gender})
                 .Select (g => new {
                     Year = g.Key.Year,
                     Virksomhedsområde = g.Key.Virksomhedsområde,
+                    Stillingskategori = g.Key.Stillingskategori,
                     Gender = g.Key.Gender,
                     Fuldtid = g.Sum(e => Math.Round(Convert.ToDecimal(e.Fuldtid),2))
                 });
@@ -83,7 +85,7 @@ namespace AZ_project.Model
                 StringBuilder CsvFuldtidSB = new StringBuilder();
 
                 //Create headlines
-                CsvFuldtidSB.AppendLine("Year;Virk;Gender;Fuldtid");
+                CsvFuldtidSB.AppendLine("Year;Virk;Kat;Gender;Fuldtid");
 
                 //Create line for each MA-nr in list:
                 foreach (var line in employeesFuldtid)
@@ -91,6 +93,7 @@ namespace AZ_project.Model
                     CsvFuldtidSB.AppendLine(
                         line.Year.ToString() + ";" +
                         line.Virksomhedsområde + ";" +
+                        line.Stillingskategori + ";" +
                         line.Gender + ";" +
                         line.Fuldtid.ToString()
                        
@@ -110,19 +113,22 @@ namespace AZ_project.Model
                     Virksomhedsområde = e.Virksomhedsområde,
                     Gender  = e.Køn,
                     Stillingskategori = e.Stillingskategori,
+                    Arbejdstid = e.Arbejdstid,
                     MA_nr = e.MA_nr
                 })
-                .GroupBy(l => new { l.Year, l.Virksomhedsområde, l.Gender})
+                .GroupBy(l => new { l.Year, l.Virksomhedsområde, l.Gender, l.Stillingskategori, l.Arbejdstid})
                 .Select (g => new {
                     Year = g.Key.Year,
                     Virksomhedsområde = g.Key.Virksomhedsområde,
                     Gender = g.Key.Gender,
+                    Stillingskategori = g.Key.Stillingskategori,
+                    Arbejdstid = g.Key.Arbejdstid,
                     Antal = g.Select(m => m.MA_nr).Distinct().Count()
                 });
 
             StringBuilder CsvAntalSB = new StringBuilder();
 
-            CsvAntalSB.AppendLine("Year;Virk;Gender;Antal");
+            CsvAntalSB.AppendLine("Year;Virk;Gender;Kat;Arbejdstid;Antal");
 
                 //Create line for each MA-nr in list:
                 foreach (var line in employeesAntal)
@@ -131,6 +137,8 @@ namespace AZ_project.Model
                         line.Year.ToString() + ";" +
                         line.Virksomhedsområde + ";" +
                         line.Gender + ";" +
+                        line.Stillingskategori + ";" +
+                        line.Arbejdstid + ";" +
                         line.Antal.ToString()
                        
                     );

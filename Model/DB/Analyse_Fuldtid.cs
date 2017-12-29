@@ -11,7 +11,7 @@ namespace AZ_project.Model.DB
         
         public string Virksomhedsområde { get; set; }
 
-        public string Overenskomst { get; set; }
+        public string Stillingskategori { get; set; }
         
         public double? Fuldtid { get; set; }
         public int År { get; set; }
