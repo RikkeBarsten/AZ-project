@@ -15,7 +15,7 @@
             console.log(csv);  */             
             
             //Set dimensions
-            var margin = {top: 20, right: 20, bottom: 100, left: 40},
+            var margin = {top: 20, right: 20, bottom: 110, left: 40},
                 width = 960 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
         
@@ -28,7 +28,7 @@
             var y = d3.scaleLinear().range([height, 0]);
         
             //Append svg-object to div
-            var svg = d3.select("#Fuldtid").append("svg")
+            var svg = d3.select("#fuldtid").append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
@@ -112,14 +112,22 @@
             //  Add x axis
             var x_axis = svg.append("g")
                 .attr("class", "axis")
-                .attr("transform", "translate(0," + height + ")")
+                .attr("transform", "translate(0," + height +  ")")
                 .call(d3.axisBottom(x_groups))
                 .selectAll("text")
-                .attr("y", 0)
-                .attr("x", 9)
-                .attr("dy", ".35em")
-                .attr("transform", "rotate(90)")
-                .style("text-anchor", "start"); 
+                //.attr("y", 0)
+                //.attr("x", 9)
+                /* .attr("dy", ".35em") */
+                //.attr("transform", "rotate(90)")
+                //.attr("transform",
+                      // "translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+                
+                //.style("text-anchor", "start")
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", "rotate(-65)")
+                .call(wrap, margin.bottom);
             
             // Add y axis
             var y_axis = svg.append("g")
@@ -140,7 +148,7 @@
             var color = d3.scaleOrdinal().range(RScolors);
 
             //Append svg-object to div
-            var svg = d3.select("#Fuldtid").append("svg")
+            var svg = d3.select("#bubble").append("svg")
                 .attr("width", width)
                 .attr("height", height)
 
@@ -288,7 +296,7 @@
                 //Append svg-object to div
                 var svg = d3.select("#fuldtid-deltid").append("svg")
                     .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
+                    .attr("height", height + margin.top)
                     //Try this for fuldtid as well
                     .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -357,7 +365,32 @@
                     .call(d3.axisBottom(x)); 
                 
             }
-                
+        
+            //Function to wrap axis label text
+            function wrap(text, width) {
+                text.each(function() {
+                  var text = d3.select(this),
+                      words = text.text().split(/\s+/).reverse(),
+                      word,
+                      line = [],
+                      lineNumber = 0,
+                      lineHeight = 1.1, // ems
+                      y = text.attr("y"),
+                      dy = parseFloat(text.attr("dy")),
+                      tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+                  while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width) {
+                      line.pop();
+                      tspan.text(line.join(" "));
+                      line = [word];
+                      tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+                    }
+                  }
+                });
+              }
+                     
 
         exports.fuldtid = fuldtid;
         exports.antal = antal;
