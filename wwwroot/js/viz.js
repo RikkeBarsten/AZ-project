@@ -158,7 +158,7 @@
                     
             data.forEach(function(d){
                 //d.Year = + d.Year;
-                d.Antal = + d.Antal;
+                d.Fuldtid = parseFloat((d.Fuldtid.replace(",",".")));
             });
         
             console.log("Parsed data:\n");
@@ -170,7 +170,7 @@
                 //.key(function (d) { return d.Year; })
                 .key(function (d) { return d.Virk; })
                 .key(function (d) { return d.Kat; })
-                .rollup(function (v) { return d3.sum(v, function (d) {return d.Antal; }); })
+                .rollup(function (v) { return d3.sum(v, function (d) {return d.Fuldtid; }); })
                 .entries(data);
 
             console.log("DataSummed: " + JSON.stringify(dataSummed));
