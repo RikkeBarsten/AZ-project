@@ -17,7 +17,7 @@
             //Set dimensions
             var margin = {top: 20, right: 20, bottom: 110, left: 40},
                 width = 960 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
+                height = 650 - margin.top - margin.bottom;
         
             //Set color-scheme 
             var color = d3.scaleOrdinal().range(RScolors);
@@ -57,7 +57,7 @@
                 .rollup(function (v) { return d3.sum(v, function (d) {return d.Fuldtid; }); })
                 .entries(data);
 
-            //console.log("DataVirkByGender: " + JSON.stringify(dataByVirkGender));
+            console.log("DataVirkByGender: " + JSON.stringify(dataByVirkGender));
                     
             //Sort data by sum of fuldtidsansatte pr. virksomhedsormåde
             dataByVirkGender.sort(function (a,b) {return ( b.values.map(function (d) {return d.value; }).reduce (function (x,y) {return x + y;}) 
@@ -79,10 +79,20 @@
             x_categories.domain(categories).rangeRound([0, x_groups.bandwidth()]);
             
             
-            console.log("max fuldtid: " + d3.max(data.map(d => d.Fuldtid)));
+            var values = dataByVirkGender.map(d => d.values);
+            //console.log("Values: " + JSON.stringify(values));
 
-            y.domain([0, d3.max(data.map(d => d.Fuldtid))]);
+            var test = values.reduce(function (a,b) {return a.concat(b);});
+            //console.log("Test: " + JSON.stringify(test));
+            
+            console.log("max fuldtid: " + d3.max(test.map(d => d.value)));
 
+            y.domain([0, d3.max(test.map(d => d.value))]);
+
+            
+            
+            
+            
             // Create g's for groups (virk)
             var groups_g = svg.selectAll("group")
                 .data(dataByVirkGender)
@@ -90,7 +100,21 @@
                 .attr("class", function (d) {return 'group group-' + d.key;} )
                 .attr("transform", function (d) {
                     return "translate(" + x_groups(d.key) + ",0)"; });
+            
                     
+            //Tooltips
+            var tooltip = d3.select('#fuldtid')           
+                .append('div')                            
+                .attr('class', 'mytooltip');                
+
+                tooltip.append('div')                        
+                .attr('class', 'gender');                   
+
+                tooltip.append('div')                        
+                .attr('class', 'count');                   
+
+                tooltip.append('div')                       
+                .attr('class', 'percent');              
             
             //Append rects for all gender values for each virk
             var rects = groups_g.selectAll("rect")
@@ -103,11 +127,15 @@
                 //.attr("y", function (d) { return y(d.value); })
                 .attr("width", x_categories.bandwidth())
                 .attr("height", function (d) { return height - y(d.value); })
-                .attr("fill", function(d) { return color(d.key); })
-                .transition()
+                .attr("fill", function(d) { return color(d.key); });
+            
+                rects.transition()
                 .duration(1000)
                 .attr("y", function (d) { return y(d.value); });
         
+
+
+                                                 // NEW    
         
             //  Add x axis
             var x_axis = svg.append("g")
@@ -133,6 +161,27 @@
             var y_axis = svg.append("g")
                 .attr("class","axis")
                 .call(d3.axisLeft(y));
+
+            rects.on("mouseover", function(d) {           // NEW
+                var total = d3.sum(data.map(function (d) {return d.Fuldtid}));
+                var fuldtid = Math.round(d.value);
+                var percent = Math.round(1000 * fuldtid / total) / 10;
+                tooltip.select('.gender').html(d.key);
+                tooltip.select('.count').html(fuldtid + ' fuldtidsansatte');
+                tooltip.select('.percent').html(percent + '% af regionens fuldtidsansatte');
+                tooltip.style('display', 'block');
+                // NEW
+                });
+                
+            rects.on('mousemove', function(d) {
+                    tooltip.style('top', (d3.event.layerY + 10) + 'px')
+                      .style('left', (d3.event.layerX + 10) + 'px');
+                  });// NEW
+                
+            rects.on('mouseout', function(d) {            // NEW
+                tooltip.style('display', 'none');                                  // NEW
+                });        
+            
             
         }
 
@@ -169,8 +218,8 @@
                 d.Fuldtid = parseFloat((d.Fuldtid.replace(",",".")));
             });
         
-            console.log("Parsed data:\n");
-            console.log(JSON.stringify(data));
+            /* console.log("Parsed data:\n");
+            console.log(JSON.stringify(data)); */
         
         
             //Nest data by virk and gender
@@ -181,7 +230,7 @@
                 .rollup(function (v) { return d3.sum(v, function (d) {return d.Fuldtid; }); })
                 .entries(data);
 
-            console.log("DataSummed: " + JSON.stringify(dataSummed));
+            //console.log("DataSummed: " + JSON.stringify(dataSummed));
             
             
 
@@ -213,15 +262,15 @@
                 .sum(function (d) {return d.value;})
                 .sort(function(a, b) { return b.value - a.value; });
 
-            console.log("Root: ") 
-            console.dir(root);
+            /* console.log("Root: ") 
+            console.dir(root); */
 
             var focus = root,
             nodes = pack(root).descendants(),
             view;
 
-            console.log("nodes: ");
-            console.dir(nodes);
+            /* console.log("nodes: ");
+            console.dir(nodes); */
         
 
             var circle = g.selectAll("circle")
@@ -281,7 +330,7 @@
                            
                 
                 //Set dimensions
-                var margin = {top: 20, right: 20, bottom: 70, left: 100},
+                var margin = {top: 20, right: 20, bottom: 70, left: 10},
                     width = 960 - margin.left - margin.right,
                     height = 500 - margin.top - margin.bottom;
             
@@ -324,7 +373,10 @@
                     .entries(data);
     
                 console.log("DataSummed: " + JSON.stringify(dataSummed));
-                        
+
+                //Sort Datasummed
+                dataSummed.sort(function (a,b) {return a.value - b.value;});
+                console.log("DataSummed sorted: " + JSON.stringify(dataSummed));        
                                           
                 //Domains
                                 
@@ -356,6 +408,7 @@
                 var y_axis = svg.append("g")
                     .attr("class", "axis")
                     .call(d3.axisLeft(y));
+                  
                 
                 
                 // Add y axis
