@@ -4,6 +4,7 @@ using System.Linq;
 using AZ_project.Model.DB;
 using AutoMapper;
 using System.Text;
+using System.IO;
 
 namespace AZ_project.Model
 {
@@ -105,6 +106,22 @@ namespace AZ_project.Model
                 return CsvFuldtidSB.ToString();
             }
 
+        public string GetFuldtid(bool csv)
+        {
+            String fuldtidString = String.Empty;
+            
+            if (!csv)
+            {
+                fuldtidString = GetFuldtid();
+            }
+            else
+            {
+                fuldtidString = File.ReadAllText("~/data/agg_fuldtid.csv");
+            }
+
+            return fuldtidString;
+            
+        }
         
         public string GetAntal() {
             

@@ -9,6 +9,8 @@ namespace AZ_project.Model
 
         string GetFuldtid();
 
+        string GetFuldtid(bool csv);
+
         string GetAntal();
     }
 }
