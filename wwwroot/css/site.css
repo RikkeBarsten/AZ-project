@@ -10,29 +10,30 @@ body {
     padding-right: 15px;
 }
 
-/* Carousel */
-.carousel-caption p {
+/* Jumbotron */
+.jumbotron {
+    background-color: #0085a1;
+    color: white
+}
+
+.jumbotron p {
     font-size: 20px;
     line-height: 1.4;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+.jumbotron #btn {
+    background-color: #999999
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.jumbotron span {
+    background-color: #80633b;
+    padding: 0.5%;
+    font-size: 50px;
+    
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
+
+
 
 /* .a {
     background: rebeccapurple;
