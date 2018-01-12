@@ -330,7 +330,7 @@
                            
                 
                 //Set dimensions
-                var margin = {top: 20, right: 20, bottom: 70, left: 10},
+                var margin = {top: 20, right: 20, bottom: 20, left: 150},
                     width = 960 - margin.left - margin.right,
                     height = 500 - margin.top - margin.bottom;
             
@@ -345,8 +345,7 @@
                 //Append svg-object to div
                 var svg = d3.select("#fuldtid-deltid").append("svg")
                     .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top)
-                    //Try this for fuldtid as well
+                    .attr("height", height + margin.top + margin.bottom)
                     .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
@@ -408,6 +407,7 @@
                 var y_axis = svg.append("g")
                     .attr("class", "axis")
                     .call(d3.axisLeft(y));
+                   
                   
                 
                 

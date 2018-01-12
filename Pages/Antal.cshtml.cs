@@ -20,9 +20,7 @@ namespace AZ_project.Pages
             _employeeAntalRepo = userRepo;
         }
 
-       /*  public string Message { get; set; } */
-        
-        
+         /*  public string Message { get; set; } */
         public void OnGet()
         {
             

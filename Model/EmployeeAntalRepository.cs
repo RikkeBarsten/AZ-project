@@ -12,49 +12,10 @@ namespace AZ_project.Model
         //Refactor - use Dependency Injection - the repository needs a constructor taking an
         //instance of AZContext as argument....-    
         AZContext db = new AZContext();
-        public string GetAll()
-        {
-            
-
-            //First: hard-coded test implementation (needs string refactoring):
-            //EmployeeAntalList = GetHardCodedList();
-
-            //Second: EF - DB First implementation:
-            
-            var employees = from e in db.Analyse_Fuldtid
-                            select e;
-
-
-            
-            StringBuilder CsvAllSB = new StringBuilder();
-
-            //Create headlines
-            CsvAllSB.AppendLine("Ma_nr;Køn;Alder;Virksomhedsområde;Overenskomst;Fuldtid;År");
-
-            //Create line for each MA-nr in list:
-            foreach (var ma in employees)
-            {
-                CsvAllSB.AppendLine(
-                    ma.MA_nr + ";" +
-                    ma.Køn + ";" +
-                    ma.Alder.ToString() + ";" +
-                    ma.Virksomhedsområde + ";" +
-                    ma.Stillingskategori + ";" +
-                    ma.Fuldtid.ToString() + ";" +
-                    ma.År.ToString()
-                );
-            }
-
-                        
-            //Third: CSV - implmentation: See overloaded method
-
-
-            return CsvAllSB.ToString();
-        }
-
+        
         public string GetFuldtid()
             {
-                
+                // Get data from EF - group and sum into aggregated datastructure
                 var employeesFuldtid = db.Analyse_Fuldtid.Select (e => new {
                     Year = e.År,
                     Virksomhedsområde = e.Virksomhedsområde,
@@ -71,7 +32,7 @@ namespace AZ_project.Model
                     Fuldtid = g.Sum(e => Math.Round(Convert.ToDecimal(e.Fuldtid),2))
                 });
 
-
+                //Create stringbuilder instance to handle csv-stringbuilding
                 StringBuilder CsvFuldtidSB = new StringBuilder();
 
                 //Create headlines
@@ -86,12 +47,9 @@ namespace AZ_project.Model
                         line.Stillingskategori + ";" +
                         line.Gender + ";" +
                         line.Fuldtid.ToString()
-                       
                     );
                 }
-                
-                
-                
+                 
                 return CsvFuldtidSB.ToString();
             }
 

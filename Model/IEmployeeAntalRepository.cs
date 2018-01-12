@@ -5,8 +5,6 @@ namespace AZ_project.Model
 {
     public interface IEmployeeAntalRepository
     {
-        string GetAll();
-
         string GetFuldtid();
 
         string GetFuldtid(bool csv);
