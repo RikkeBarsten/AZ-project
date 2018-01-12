@@ -1,2 +1,4 @@
 # AZ-project
-Personalestatistik
+Visualisering af personalestatistik i Region Sjælland.
+
+Testversion af applikationen findes her: https://aztestapp.azurewebsites.net/.
