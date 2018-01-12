@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AZ_project.Model.DB;
-using AutoMapper;
 using System.Text;
 using System.IO;
 
@@ -26,16 +25,6 @@ namespace AZ_project.Model
                             select e;
 
 
-            // https://www.exceptionnotfound.net/entity-framework-and-wcf-mapping-entities-to-dtos-with-automapper/
-            // Mapper and EmployeeAntalDTO wont be used, as I decided to pass csv-strings from model to pages - these are easier to work with front-end (d3)
-         
-            /* List<EmployeeAntalDTO> EmployeeAntalList = new List<EmployeeAntalDTO>();
-            
-            Mapper.Initialize(cfg => cfg.CreateMap<Analyse_Antal, EmployeeAntalDTO>());
-
-            var EmployeeList = Mapper.Map<IEnumerable<Analyse_Antal>, IEnumerable<EmployeeAntalDTO>>(employees);
-
-            EmployeeAntalList = EmployeeList.ToList(); */
             
             StringBuilder CsvAllSB = new StringBuilder();
 
@@ -57,7 +46,7 @@ namespace AZ_project.Model
             }
 
                         
-            //Third: CSV - implmentation:
+            //Third: CSV - implmentation: See overloaded method
 
 
             return CsvAllSB.ToString();
