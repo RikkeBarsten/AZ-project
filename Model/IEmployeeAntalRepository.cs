@@ -12,6 +12,8 @@ namespace AZ_project.Model
         string GetFuldtid(bool csv);
 
         string GetAntal();
+
+        string GetAntal(bool csv);
     }
 }
 

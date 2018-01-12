@@ -27,7 +27,7 @@ namespace AZ_project.Pages
         {
             
             EmployeeFuldtid = _employeeAntalRepo.GetFuldtid(true);
-            EmployeeAntal = _employeeAntalRepo.GetAntal();
+            EmployeeAntal = _employeeAntalRepo.GetAntal(true);
             //Message = "Test";
         }
 

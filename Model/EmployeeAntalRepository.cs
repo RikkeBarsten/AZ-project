@@ -116,7 +116,7 @@ namespace AZ_project.Model
             }
             else
             {
-                fuldtidString = File.ReadAllText("~/data/agg_fuldtid.csv");
+                fuldtidString = File.ReadAllText("wwwroot/data/agg_fuldtid.csv", Encoding.UTF7);
             }
 
             return fuldtidString;
@@ -163,6 +163,22 @@ namespace AZ_project.Model
 
 
             return CsvAntalSB.ToString();
+        }
+
+        public string GetAntal(bool csv){
+
+            String antalString = String.Empty;
+            
+            if (!csv)
+            {
+                antalString = GetAntal();
+            }
+            else
+            {
+                antalString = File.ReadAllText("wwwroot/data/agg_antal.csv", Encoding.UTF7);
+            }
+
+            return antalString;
         }
         
         
