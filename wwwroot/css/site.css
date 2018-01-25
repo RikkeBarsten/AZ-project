@@ -57,8 +57,12 @@ body {
     stroke-width: 1.5px;
     }
 
-.node--leaf {
+.node--leaf--Kvinder {
     fill: white;
+    }
+
+.node--leaf--Mænd {
+    fill: lightblue;
     }
 
 .label {

@@ -227,10 +227,11 @@
                 //.key(function (d) { return d.Year; })
                 .key(function (d) { return d.Virk; })
                 .key(function (d) { return d.Kat; })
+                .key(function (d) { return d.Gender; })
                 .rollup(function (v) { return d3.sum(v, function (d) {return d.Fuldtid; }); })
                 .entries(data);
 
-            //console.log("DataSummed: " + JSON.stringify(dataSummed));
+            console.log("DataSummed: " + JSON.stringify(dataSummed));
             
             
 
@@ -276,7 +277,7 @@
             var circle = g.selectAll("circle")
                 .data(nodes)
                 .enter().append("circle")
-                .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
+                .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf--" + d.data.key : "node node--root"; })
                 .style("fill", function(d) { return d.children ? color(d.depth) : null; })
                 .on("click", function(d) { if (focus !== d) zoom(d), d3.event.stopPropagation(); });
 
