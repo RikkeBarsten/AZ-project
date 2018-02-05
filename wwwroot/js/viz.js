@@ -7,7 +7,14 @@
         'use strict';
 
         var RScolors = ["#80633b","#0085a1", "#94948f", "#595959", "#f9e300", "#fecb00", "#fcc860", "#fc9e77", "#ff6d22", "#bd4f19",
-        "#e21b23", "#a20234", "	#00b092", "	#4bdbc3", "#d4df4d",  "#9c9a00", "#005c42", "#64bf92", "#6fd4e4", "#3d7edb"];   
+        "#e21b23", "#a20234", "	#00b092", "	#4bdbc3", "#d4df4d",  "#9c9a00", "#005c42", "#64bf92", "#6fd4e4", "#3d7edb"];
+        
+        var Brown = RScolors[0];
+        
+        var RScolors3 = RScolors.slice(0,3).reverse();
+        var RScolorsBubble = RScolors.slice(0,4).filter(function (x){ return x != Brown}).reverse();
+        
+        
 
         function fuldtid(csv){
             
@@ -127,7 +134,8 @@
                 //.attr("y", function (d) { return y(d.value); })
                 .attr("width", x_categories.bandwidth())
                 .attr("height", function (d) { return height - y(d.value); })
-                .attr("fill", function(d) { return color(d.key); });
+                .attr("fill", function(d) { return color(d.key); })
+                .attr("data-legend",function(d) { return d.key});
             
                 rects.transition()
                 .duration(1000)
@@ -162,6 +170,34 @@
                 .attr("class","axis")
                 .call(d3.axisLeft(y));
 
+            // Add legends
+            var legendRectSize = 18;                                  // NEW
+            var legendSpacing = 4;                                    // NEW
+
+            var legend = svg.selectAll('.legend')
+                .data(color.domain())
+                .enter()
+                .append('g')
+                .attr('class', 'legend')
+                .attr('transform', function(d, i) {                     // NEW
+                    var height = legendRectSize + legendSpacing;          // NEW
+                    var offset =  height * color.domain().length / 2;     // NEW
+                    var horz = width - legendRectSize*3;                       // NEW
+                    var vert = i * height - offset;                       // NEW
+                    return 'translate(' + horz + ',' + vert + ')';        // NEW
+                  });
+
+            legend.append('rect')
+                .attr('width', legendRectSize)
+                .attr('height', legendRectSize)
+                .style('fill', color)
+                .style('stroke', color);
+            
+            legend.append('text')
+                .attr('x', legendRectSize + legendSpacing)
+                .attr('y', legendRectSize - legendSpacing)
+                .text(function(d) { return d; });        
+
             rects.on("mouseover", function(d) {           // NEW
                 var total = d3.sum(data.map(function (d) {return d.Fuldtid}));
                 var fuldtid = Math.round(d.value);
@@ -194,7 +230,7 @@
             diameter = width;
 
             //Set color-scheme 
-            var color = d3.scaleOrdinal().range(RScolors);
+            var color = d3.scaleOrdinal().range(RScolorsBubble);
 
             //Append svg-object to div
             var svg = d3.select("#bubble").append("svg")
@@ -336,7 +372,7 @@
                     height = 500 - margin.top - margin.bottom;
             
                 //Set color-scheme 
-                var color = d3.scaleOrdinal().range(RScolors);
+                var color = d3.scaleOrdinal().range(RScolors3);
                 
                 //Set scales and ranges
                 var x = d3.scaleLinear().range([0, width]);
@@ -392,14 +428,13 @@
     
                                       
                 
-                //Append rects for all gender values for each virk
+                
                 var rects = svg.selectAll("rect")
                     .data(dataSummed)
                     .enter()
                     .append("rect")
                     .attr("y", function(d) {return y(d.key);})
                     .attr("x", 0)
-                    //.attr("y", function (d) { return y(d.value); })
                     .attr("height", y.bandwidth())
                     .attr("width", function (d) { return x(d.value); })
                     .attr("fill", function(d) { return color(d.key); });

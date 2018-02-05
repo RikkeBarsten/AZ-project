@@ -16,7 +16,9 @@ namespace AZ_project.Model
         public string GetFuldtid()
             {
                 // Get data from EF - group and sum into aggregated datastructure
-                var employeesFuldtid = db.Analyse_Fuldtid.Select (e => new {
+                var employeesFuldtid = db.Analyse_Fuldtid
+                .Where(e => e.År == 2017)
+                .Select (e => new {
                     Year = e.År,
                     Virksomhedsområde = e.Virksomhedsområde,
                     Stillingskategori = e.Stillingskategori,
@@ -72,7 +74,9 @@ namespace AZ_project.Model
         
         public string GetAntal() {
             
-            var employeesAntal = db.Analyse_Antal.Select (e => new {
+            var employeesAntal = db.Analyse_Antal
+            .Where(e => e.År == 2017)
+            .Select (e => new {
                     Year = e.År,
                     Virksomhedsområde = e.Virksomhedsområde,
                     Gender  = e.Køn,
